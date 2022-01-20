@@ -101,7 +101,7 @@ class InstagramBot():
 
             print(f"gathered {len(users)} users")
 
-            return users
+            return list(users)
 
         except Exception as ex:
             print(ex)
@@ -117,3 +117,20 @@ class InstagramBot():
 
         browser.find_element(By.CLASS_NAME, "jIbKX").click()
         print(f"subscribed on {user}")
+
+    def like_post(self, url):
+        browser = self.browser
+
+        try:
+            browser.get(url)
+
+            path = "/html/body/div[1]/section/main/div/div[1]/article/div/div[2]/div/div[2]/section[1]/span[1]/button"
+            if self.xpath_exists(path):
+                browser.find_element(By.XPATH, path).click()
+                print("post liked")
+
+        except Exception as ex:
+            print(ex)
+
+        finally:
+            self.close_browser()
