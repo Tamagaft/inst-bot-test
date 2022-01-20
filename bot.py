@@ -134,3 +134,36 @@ class InstagramBot():
 
         finally:
             self.close_browser()
+
+    def unsubscribe_from_all(self):
+        browser = self.browser
+
+        browser.get(f"https://www.instagram.com/{self.username}/")
+        browser.implicitly_wait(5)
+        time.sleep(random.randrange(1, 3))
+
+        path = "/html/body/div[1]/section/main/div/header/section/ul/li[3]/a"
+
+        if self.xpath_exists(path):
+            following_button = browser.find_element(By.XPATH, path)
+
+            following_button.click()
+            browser.implicitly_wait(5)
+
+            following_div_block = browser.find_element(By.CLASS_NAME, "PZuss")
+            following_users = following_div_block.find_elements(By.TAG_NAME, "li")
+
+            print("starting unsubscribing")
+            for user in following_users:
+
+                user.find_element(By.CLASS_NAME, "_8A5w5").click()
+                browser.implicitly_wait(3)
+                time.sleep(random.randrange(1, 2))
+
+                browser.find_element(By.XPATH, "/html/body/div[7]/div/div/div/div[3]/button[1]").click()
+
+                #time.sleep(random.randrange(120, 130))
+                time.sleep(random.randrange(2, 4))
+
+
+
