@@ -108,3 +108,12 @@ class InstagramBot():
         finally:
             self.close_browser()
 
+    def subscribe_on_account(self, user):
+        browser = self.browser
+
+        browser.get(f"https://www.instagram.com/{user}/")
+        browser.implicitly_wait(5)
+        time.sleep(random.randrange(1, 3))
+
+        browser.find_element(By.CLASS_NAME, "jIbKX").click()
+        print(f"subscribed on {user}")
